@@ -6,13 +6,13 @@
 /*   By: mirsella <mirsella@protonmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 14:46:37 by mirsella          #+#    #+#             */
-/*   Updated: 2022/12/26 16:07:50 by mirsella         ###   ########.fr       */
+/*   Updated: 2022/12/26 19:06:00 by mirsella         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-char	*pass_number(char *str)
+int	pass_number(char *str)
 {
 	int	i;
 
@@ -21,26 +21,32 @@ char	*pass_number(char *str)
 		i++;
 	if (str[i] == '-' || str[i] == '+')
 		i++;
+	if (str[i] < '0' || str[i] > '9')
+		error(NULL);
 	while (str[i] >= '0' && str[i] <= '9')
 		i++;
-	return (str + i);
+	return (i);
 }
 
 int		count_numbers(int ac, char **av)
 {
-	int	i;
+	int	acindex;
+	int i;
 	int	count;
 
-	i = 1;
+	acindex = 1;
 	count = 0;
-	while (i < ac)
+	while (acindex < ac)
 	{
-		while (*av[i])
+		i = 0;
+		while (av[acindex][i])
 		{
 			count++;
-			av[i] = pass_number(av[i]);
+			if (pass_number(av[acindex] + i) == 0)
+				error(NULL);
+			i += pass_number(av[acindex] + i);
 		}
-		i++;
+		acindex++;
 	}
 	return (count);
 }
@@ -49,23 +55,28 @@ int		*create_pile(int ac, char **av, size_t size)
 {
 	int	*pa;
 	long long	nb;
+	int	acindex;
 	int	i;
-	int	j;
+	int	pindex;
 	
-	i = 1;
-	j = 0;
-	pa = malloc_pile(size);
-	while (i < ac)
+	acindex = 1;
+	pindex = 0;
+	i = 0;
+	pa = malloc(sizeof(int) * size);
+	if (!pa)
+		error(NULL);
+	while (acindex < ac)
 	{
-		while (*av[i])
+		i = 0;
+		while (av[acindex][i])
 		{
-			nb = ft_atoll(av[i]);
+			nb = ft_atoll(av[acindex] + i);
 			if (nb > INT_MAX || nb < INT_MIN)
 				error(pa);
-			pa[j] = nb;
-			j++;
-			av[i] = pass_number(av[i]);
+			pa[pindex++] = nb;
+			i += pass_number(av[acindex] + i);
 		}
+		acindex++;
 	}
 	return (pa);
 }
