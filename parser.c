@@ -1,57 +1,71 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mirsella <mirsella@protonmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/09 23:13:50 by mirsella          #+#    #+#             */
-/*   Updated: 2022/12/26 15:17:42 by mirsella         ###   ########.fr       */
+/*   Created: 2022/12/26 14:46:37 by mirsella          #+#    #+#             */
+/*   Updated: 2022/12/26 16:07:50 by mirsella         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_atoi(const char *str)
+#include "push_swap.h"
+
+char	*pass_number(char *str)
 {
 	int	i;
-	int	neg;
-	int	res;
 
 	i = 0;
-	neg = 1;
-	res = 0;
 	while (str[i] == ' ' || (str[i] > 8 && str[i] < 14))
 		i++;
-	if (str[i] == '-')
-		neg = -1;
 	if (str[i] == '-' || str[i] == '+')
 		i++;
 	while (str[i] >= '0' && str[i] <= '9')
-	{
-		res = res * 10 + str[i] - '0';
 		i++;
-	}
-	return (res * neg);
+	return (str + i);
 }
 
-long long ft_atoll(const char *str)
+int		count_numbers(int ac, char **av)
 {
-	long long res;
-	int i;
-	int neg;
+	int	i;
+	int	count;
 
-	res = 0;
-	i = 0;
-	neg = 1;
-	while (str[i] == ' ' || (str[i] >= 9 && str[i] <= 13))
-		i++;
-	if (str[i] == '-')
-		neg = -1;
-	if (str[i] == '-' || str[i] == '+')
-		i++;
-	while (str[i] >= '0' && str[i] <= '9')
+	i = 1;
+	count = 0;
+	while (i < ac)
 	{
-		res = res * 10 + str[i] - '0';
+		while (*av[i])
+		{
+			count++;
+			av[i] = pass_number(av[i]);
+		}
 		i++;
 	}
-	return (res * neg);
+	return (count);
+}
+
+int		*create_pile(int ac, char **av, size_t size)
+{
+	int	*pa;
+	long long	nb;
+	int	i;
+	int	j;
+	
+	i = 1;
+	j = 0;
+	pa = malloc_pile(size);
+	while (i < ac)
+	{
+		while (*av[i])
+		{
+			nb = ft_atoll(av[i]);
+			if (nb > INT_MAX || nb < INT_MIN)
+				error(pa);
+			pa[j] = nb;
+			j++;
+			av[i] = pass_number(av[i]);
+		}
+	}
+	return (pa);
 }
