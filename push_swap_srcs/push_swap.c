@@ -6,7 +6,7 @@
 /*   By: mirsella <mirsella@protonmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 14:30:57 by mirsella          #+#    #+#             */
-/*   Updated: 2023/01/03 00:31:19 by mirsella         ###   ########.fr       */
+/*   Updated: 2023/01/03 00:51:12 by mirsella         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,5 @@ int	main(int ac, char **av)
 	checkduplicate(pa, sizea);
 	// printpiles(pa, pb, sizea, sizeb);
 	sort(pa, pb, sizea, sizeb);
-	// printpiles(pa, pb, sizea, sizeb);
+	printpiles(pa, pb, sizea, sizeb);
 }

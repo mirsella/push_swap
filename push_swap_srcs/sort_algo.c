@@ -6,7 +6,7 @@
 /*   By: mirsella <mirsella@protonmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 18:37:55 by mirsella          #+#    #+#             */
-/*   Updated: 2023/01/03 00:44:53 by mirsella         ###   ########.fr       */
+/*   Updated: 2023/01/03 00:56:01 by mirsella         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,22 @@ void	sort_3(int *pa, size_t sizea)
 
 void	sort_basic(int *pa, int *pb, size_t sizea, size_t sizeb)
 {
+	if (ft_isascending(pa, sizea))
+		return ;
 	while (sizea > 3)
 	{
 		goto_minimum(pa, sizea);
 		push_b(pa, pb, &sizea, &sizeb);
+		if (ft_isascending(pa, sizea))
+			break ;
 	}
-	sort_3(pa, sizea);
+	if (sizea == 3)
+		sort_3(pa, sizea);
 	while (sizeb > 0)
 		push_a(pa, pb, &sizea, &sizeb);
 }
+
+void	sort_pb_to_pa(int *pa, int *pb, size_t sizea, size_t sizeb);
 
 void	sort_advanced(int *pa, int *pb, size_t sizea, int chunk)
 {
@@ -46,6 +53,8 @@ void	sort_advanced(int *pa, int *pb, size_t sizea, int chunk)
 	get_limit(pa, pb, sizea, chunk);
 	while (chunkn < chunk)
 	{
+		if (ft_isascending(pa, sizea))
+			break ;
 		limit = get_limit(pa, pb, sizea, chunkn);
 		// ft_printf("limit: %d\n", limit);
 		// (void)i;
@@ -54,6 +63,8 @@ void	sort_advanced(int *pa, int *pb, size_t sizea, int chunk)
 		{
 			goto_closest_below(pa, sizea, limit);
 			push_b(pa, pb, &sizea, &sizeb);
+			if (ft_isascending(pa, sizea))
+				break ;
 		}
 		chunkn++;
 	}
