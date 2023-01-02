@@ -6,13 +6,13 @@
 /*   By: mirsella <mirsella@protonmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 15:24:19 by mirsella          #+#    #+#             */
-/*   Updated: 2023/01/02 16:21:08 by mirsella         ###   ########.fr       */
+/*   Updated: 2023/01/03 00:07:56 by mirsella         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
 
-int	*malloc_pile(int size)
+int	*malloc_pile(size_t size)
 {
 	int	*pile;
 
@@ -20,6 +20,23 @@ int	*malloc_pile(int size)
 	if (!pile)
 		error(NULL);
 	return (pile);
+}
+
+int	*intdup(int *pile, size_t size)
+{
+	int		*new_pile;
+	size_t	i;
+
+	new_pile = ft_calloc(size, sizeof(int));
+	if (!new_pile)
+		return (NULL);
+	i = 0;
+	while (i < size)
+	{
+		new_pile[i] = pile[i];
+		i++;
+	}
+	return (new_pile);
 }
 
 void	printpiles(int *pa, int *pb, size_t sizea, size_t sizeb)

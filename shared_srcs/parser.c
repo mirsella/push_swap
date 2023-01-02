@@ -6,7 +6,7 @@
 /*   By: mirsella <mirsella@protonmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 14:46:37 by mirsella          #+#    #+#             */
-/*   Updated: 2023/01/02 14:45:56 by mirsella         ###   ########.fr       */
+/*   Updated: 2023/01/02 18:14:24 by mirsella         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,8 @@ int	*parse(int ac, char **av, size_t size)
 	while (++acindex < ac)
 	{
 		i = 0;
+		if (av[acindex][0] == '\0')
+			error(pa);
 		while (av[acindex][i])
 		{
 			nb = ft_atoll(av[acindex] + i);

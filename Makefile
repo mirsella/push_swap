@@ -1,4 +1,4 @@
-SRCS = $(addprefix push_swap_srcs/, push_swap.c sort.c) \
+SRCS = $(addprefix push_swap_srcs/, push_swap.c sort.c sort_algo.c) \
 	   $(addprefix shared_srcs/, pile.c pile_action_basic.c pile_action_rotate.c pile_action_rrotate.c parser.c)
 OBJS = $(SRCS:.c=.o)
 

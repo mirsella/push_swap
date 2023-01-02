@@ -6,7 +6,7 @@
 /*   By: mirsella <mirsella@protonmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 22:35:33 by mirsella          #+#    #+#             */
-/*   Updated: 2023/01/02 17:25:33 by mirsella         ###   ########.fr       */
+/*   Updated: 2023/01/03 00:38:44 by mirsella         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,9 @@ typedef struct s_list
 	struct s_list	*next;
 }	t_list;
 
+int					ft_floor(double x);
+int					ft_ceil(double x);
+int					ft_round(double x);
 int					ft_isascending(int *tab, int size);
 int					ft_isdescending(int *tab, int size);
 int					ft_atoi(const char *str);
@@ -76,6 +79,7 @@ t_list				*ft_list_find(t_list *begin_list, void *data_ref,
 						int (*cmp)(void *, void *));
 t_list				*ft_lstnew(void *content);
 t_list				*ft_list_at(t_list *begin_list, unsigned int nbr);
+void				ft_intsort(int *tab, int size);
 void				*ft_calloc(size_t count, size_t size);
 void				*ft_memccpy(void *dest, const void *src, int c, size_t n);
 void				*ft_memchr(const void *s, int c, size_t n);

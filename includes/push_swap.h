@@ -6,7 +6,7 @@
 /*   By: mirsella <mirsella@protonmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 14:46:47 by mirsella          #+#    #+#             */
-/*   Updated: 2023/01/02 17:46:52 by mirsella         ###   ########.fr       */
+/*   Updated: 2023/01/03 00:03:59 by mirsella         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,15 @@ void	rrotate_a(int *pa, size_t size);
 void	rrotate_b(int *pb, size_t size);
 void	rrotate(int *pa, int *pb, size_t sizea, size_t sizeb);
 void	sort(int *pa, int *pb, size_t sizea, size_t sizeb);
+int		get_limit(int *pa, int *pb, size_t sizea, int chunk);
 void	goto_minimum(int *pa, size_t sizea);
-int		*malloc_pile(int size);
+void	goto_closest_below(int *pa, size_t sizea, int limit);
+void	goto_num(int *pa, size_t sizea, int num);
+void	sort_3(int *pa, size_t sizea);
+void	sort_basic(int *pa, int *pb, size_t sizea, size_t sizeb);
+void	sort_advanced(int *pa, int *pb, size_t sizea, int chunk);
+int		*intdup(int *pile, size_t size);
+int		*malloc_pile(size_t size);
 int		*parse(int ac, char **av, size_t size);
 int		count_numbers(int ac, char **av);
 
