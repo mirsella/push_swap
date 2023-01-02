@@ -6,7 +6,7 @@
 /*   By: mirsella <mirsella@protonmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 23:13:50 by mirsella          #+#    #+#             */
-/*   Updated: 2022/12/26 15:17:42 by mirsella         ###   ########.fr       */
+/*   Updated: 2023/01/02 13:43:53 by mirsella         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,11 @@ int	ft_atoi(const char *str)
 	return (res * neg);
 }
 
-long long ft_atoll(const char *str)
+long long	ft_atoll(const char *str)
 {
-	long long res;
-	int i;
-	int neg;
+	long long	res;
+	int			i;
+	int			neg;
 
 	res = 0;
 	i = 0;

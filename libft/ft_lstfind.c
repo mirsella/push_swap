@@ -1,41 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.c                                        :+:      :+:    :+:   */
+/*   ft_lstfind.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mirsella <mirsella@protonmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/26 14:30:57 by mirsella          #+#    #+#             */
-/*   Updated: 2022/12/26 18:56:21 by mirsella         ###   ########.fr       */
+/*   Created: 2023/01/02 15:35:08 by mirsella          #+#    #+#             */
+/*   Updated: 2023/01/02 15:54:12 by mirsella         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "libft.h"
 
-void	error(int *pa)
+t_list	*ft_list_find(t_list *begin_list, void *data_ref,
+		int (*cmp)(void *, void *))
 {
-	free(pa);
-	ft_putendl_fd("Error", 2);
-	exit(0);
-}
+	t_list	*list;
 
-int	main(int ac, char **av)
-{
-	int		*pa;
-	size_t	size;
-	size_t		i;
-
-	if (ac == 1)
-		error(NULL);
-	size = count_numbers(ac, av);
-	ft_printf("size = %u\n", size);
-	if (size < 1)
-		error(NULL);
-	pa = create_pile(ac, av, size);
-	i = 0;
-	while (i < size)
+	list = begin_list;
+	while (list)
 	{
-		ft_printf("pa[%d] = %d\n", i, pa[i]);
-		i++;
+		if (cmp(list->content, data_ref) == 0)
+			return (list);
+		list = list->next;
 	}
+	return (0);
 }

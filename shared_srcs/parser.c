@@ -6,11 +6,11 @@
 /*   By: mirsella <mirsella@protonmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 14:46:37 by mirsella          #+#    #+#             */
-/*   Updated: 2022/12/26 19:06:00 by mirsella         ###   ########.fr       */
+/*   Updated: 2023/01/02 14:45:56 by mirsella         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "../includes/push_swap.h"
 
 int	pass_number(char *str)
 {
@@ -28,10 +28,10 @@ int	pass_number(char *str)
 	return (i);
 }
 
-int		count_numbers(int ac, char **av)
+int	count_numbers(int ac, char **av)
 {
 	int	acindex;
-	int i;
+	int	i;
 	int	count;
 
 	acindex = 1;
@@ -51,21 +51,38 @@ int		count_numbers(int ac, char **av)
 	return (count);
 }
 
-int		*create_pile(int ac, char **av, size_t size)
+void	checkduplicate(int *pa, int size)
 {
-	int	*pa;
-	long long	nb;
-	int	acindex;
 	int	i;
-	int	pindex;
-	
-	acindex = 1;
+	int	j;
+
+	i = 0;
+	while (i < size)
+	{
+		j = i + 1;
+		while (j < size)
+		{
+			if (pa[i] == pa[j])
+				error(pa);
+			j++;
+		}
+		i++;
+	}
+}
+
+int	*parse(int ac, char **av, size_t size)
+{
+	int			*pa;
+	long long	nb;
+	int			acindex;
+	int			i;
+	int			pindex;
+
+	acindex = 0;
 	pindex = 0;
 	i = 0;
-	pa = malloc(sizeof(int) * size);
-	if (!pa)
-		error(NULL);
-	while (acindex < ac)
+	pa = malloc_pile(size);
+	while (++acindex < ac)
 	{
 		i = 0;
 		while (av[acindex][i])
@@ -76,7 +93,6 @@ int		*create_pile(int ac, char **av, size_t size)
 			pa[pindex++] = nb;
 			i += pass_number(av[acindex] + i);
 		}
-		acindex++;
 	}
 	return (pa);
 }

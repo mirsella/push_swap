@@ -1,23 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pile.c                                             :+:      :+:    :+:   */
+/*   ft_issorted.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mirsella <mirsella@protonmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/26 15:24:19 by mirsella          #+#    #+#             */
-/*   Updated: 2022/12/26 15:48:39 by mirsella         ###   ########.fr       */
+/*   Created: 2023/01/02 17:23:30 by mirsella          #+#    #+#             */
+/*   Updated: 2023/01/02 17:26:19 by mirsella         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
-
-int	*malloc_pile(int size)
+int	ft_isascending(int *tab, int length)
 {
-	int	*pile;
+	int	i;
 
-	pile = ft_calloc(size, sizeof(int));
-	if (!pile)
-		error(NULL);
-	return (pile);
+	i = 0;
+	while (i < length - 1)
+	{
+		if (tab[i] > tab[i + 1])
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
+int	ft_isdescending(int *tab, int length)
+{
+	int	i;
+
+	i = 0;
+	while (i < length - 1)
+	{
+		if (tab[i] < tab[i + 1])
+			return (0);
+		i++;
+	}
+	return (1);
 }

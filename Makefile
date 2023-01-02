@@ -1,9 +1,10 @@
-SRCS = push_swap.c parser.c pile.c
+SRCS = $(addprefix push_swap_srcs/, push_swap.c sort.c) \
+	   $(addprefix shared_srcs/, pile.c pile_action_basic.c pile_action_rotate.c pile_action_rrotate.c parser.c)
 OBJS = $(SRCS:.c=.o)
 
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
-CFLAGS += -g3
+# CFLAGS += -g3
 
 LIBFT = libft/libft.a
 NAME = push_swap
@@ -21,8 +22,7 @@ clean:
 	rm $(OBJS)
 
 fclean: clean
-	make -C libft fclean
-	rm $(NAME)
+	rm $(NAME) $(LIBFT)
 
 re: fclean all
 
