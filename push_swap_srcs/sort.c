@@ -6,107 +6,110 @@
 /*   By: mirsella <mirsella@protonmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 16:59:45 by mirsella          #+#    #+#             */
-/*   Updated: 2023/01/03 16:19:21 by mirsella         ###   ########.fr       */
+/*   Updated: 2023/01/04 00:06:53 by mirsella         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
 
-int	goto_closest_below(int *pile, size_t size, int max, char letter)
+int	get_limit(t_piles *a, t_piles *b, int chunkn)
 {
-	size_t	start;
-	size_t	end;
+	static int		*sorted = 0;
+	static int		step = 0;
 
-	start = 0;
-	end = 0;
-	while (pile[start] > max && start < size)
-		start++;
-	while (pile[size - 1 - end] > max && end < size)
-		end++;
-	if (start == end && start == size)
-		return (0);
-	goto_num(pile, size, pile[ft_llmin(start, size - 1 - end)], letter);
-	return (1);
+	if (!sorted)
+	{
+		sorted = intdup(*a);
+		if (sorted == NULL)
+			error(a->p, b->p);
+		ft_intsort(sorted, a->size);
+		step = ft_round((float)a->size / chunkn);
+		return (step);
+	}
+	return (sorted[step * chunkn]);
 }
 
-void	goto_num(int *pile, size_t size, int num, char letter)
+void	goto_num(t_piles *pile, int num, char letter)
 {
 	size_t	i;
 
 	i = 0;
-	while (i < size)
+	while (i < pile->size)
 	{
-		if (pile[i] == num)
+		if (pile->p[i] == num)
 			break ;
 		i++;
 	}
-	if (i < size / 2)
-		while (pile[0] != num)
+	if (i <= pile->size / 2)
+	{
+		while (pile->p[0] != num)
 		{
-			rotate_p(pile, size);
+			rotate_p(pile);
 			ft_printf("r%c\n", letter);
 		}
-
+	}
 	else
-		while (pile[0] != num)
+	{
+		while (pile->p[0] != num)
 		{
-			rrotate_p(pile, size);
+			rrotate_p(pile);
 			ft_printf("rr%c\n", letter);
 		}
+	}
 }
 
-void	goto_maximum(int *pile, size_t size, char letter)
+void	goto_maximum(t_piles *pile, char letter)
 {
 	size_t	i;
 	size_t	max;
 
 	i = 0;
 	max = 0;
-	while (i < size)
+	while (i < pile->size)
 	{
-		if (pile[i] > pile[max])
+		if (pile->p[i] > pile->p[max])
 			max = i;
 		i++;
 	}
-	goto_num(pile, size, pile[max], letter);
+	goto_num(pile, pile->p[max], letter);
 }
 
-void	goto_minimum(int *pile, size_t size, char letter)
+void	goto_minimum(t_piles *pile, char letter)
 {
 	size_t	i;
 	int		min;
 
 	i = 0;
-	min = pile[0];
-	while (i < size)
+	min = pile->p[0];
+	while (i < pile->size)
 	{
-		if (pile[i] < min)
-			min = pile[i];
+		if (pile->p[i] < min)
+			min = pile->p[i];
 		i++;
 	}
-	goto_num(pile, size, min, letter);
+	goto_num(pile, min, letter);
 }
 
-void	sort(int *pa, int *pb, size_t sizea, size_t sizeb)
+void	sort(t_piles *a, t_piles *b)
 {
-	if (sizea < 2)
+	if (a->size < 2)
 		return ;
-	else if (sizea == 2)
+	else if (a->size == 2)
 	{
-		if (pa[0] > pa[1])
+		if (a->p[0] > a->p[1])
 		{
-			swap_p(pa, sizea);
+			swap_p(a);
 			ft_putstr("sa\n");
 		}
 	}
-	else if (sizea == 3)
-		sort_3(pa, sizea);
-	else if (ft_isascending(pa, sizea))
+	else if (a->size == 3)
+		sort_3(a);
+	else if (ft_isascending(a->p, a->size))
 		return ;
-	else if (sizea <= 10)
-		sort_basic(pa, pb, sizea, sizeb);
-	else if (sizea <= 100)
-		sort_advanced(pa, pb, sizea, 4);
+	else if (a->size <= 10)
+		sort_basic(a, b);
+	else if (a->size <= 100)
+		sort_advanced(a, b, 5);
 	else
-		sort_advanced(pa, pb, sizea, 8);
+		sort_advanced(a, b, 12);
 }

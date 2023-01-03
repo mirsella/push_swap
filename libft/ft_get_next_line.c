@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   ft_get_next_line.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mirsella <mirsella@protonmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 14:54:00 by mirsella          #+#    #+#             */
-/*   Updated: 2022/11/21 14:50:46 by mirsella         ###   ########.fr       */
+/*   Updated: 2023/01/03 23:17:15 by mirsella         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,12 +98,17 @@ char	*get_end_of_buffer(char *storage)
 	return (str);
 }
 
-char	*ft_get_next_line(int fd)
+char	*ft_get_next_line(int fd, int freee)
 {
 	static char	*storage;
 	char		*line;
 	char		*tmp;
 
+	if (freee == 1)
+	{
+		free(storage);
+		return (NULL);
+	}
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
 	if (!storage || (storage && !ft_strchr(storage, '\n')))

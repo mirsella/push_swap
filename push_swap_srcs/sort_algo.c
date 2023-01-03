@@ -6,110 +6,52 @@
 /*   By: mirsella <mirsella@protonmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 18:37:55 by mirsella          #+#    #+#             */
-/*   Updated: 2023/01/03 15:55:34 by mirsella         ###   ########.fr       */
+/*   Updated: 2023/01/03 22:18:08 by mirsella         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
+#include <stddef.h>
 
-void	sort_3(int *pa, size_t sizea)
+void	sort_3(t_piles *pile)
 {
-	if (pa[0] > pa[1] && pa[0] > pa[2])
+	if (pile->p[0] > pile->p[1] && pile->p[0] > pile->p[2])
 	{
-		rotate_p(pa, sizea);
+		rotate_p(pile);
 		ft_putstr("ra\n");
 	}
-	else if (pa[1] > pa[0] && pa[1] > pa[2])
+	else if (pile->p[1] > pile->p[0] && pile->p[1] > pile->p[2])
 	{
-		rrotate_p(pa, sizea);
+		rrotate_p(pile);
 		ft_putstr("rra\n");
 	}
-	if (pa[0] > pa[1])
+	if (pile->p[0] > pile->p[1])
 	{
-		swap_p(pa, sizea);
+		swap_p(pile);
 		ft_putstr("sa\n");
 	}
 }
 
-void	sort_basic(int *pa, int *pb, size_t sizea, size_t sizeb)
+void	sort_basic(t_piles *a, t_piles *b)
 {
 	size_t	i;
 
 	i = 0;
-	if (ft_isascending(pa, sizea))
+	if (ft_isascending(a->p, a->size))
 		return ;
-	while (sizea > 3)
+	while (a->size > 3)
 	{
-		goto_minimum(pa, sizea, 'a');
-		push_p(pb, &sizeb, pa, &sizea);
+		goto_minimum(a, 'a');
+		if (ft_isascending(a->p, a->size))
+			break ;
+		push_p(b, a);
 		ft_putstr("pb\n");
 		i++;
-		if (ft_isascending(pa, sizea))
-			break ;
 	}
-	sort(pa, pb, sizea, sizeb);
+	sort(a, b);
 	while (i-- > 0)
 	{
-		push_p(pa, &sizea, pb, &sizeb);
+		push_p(a, b);
 		ft_putstr("pa\n");
 	}
-}
-
-int	get_limit(int *pa, int *pb, size_t sizea, int chunkn)
-{
-	static int		*sorted = 0;
-	static int		step = 0;
-
-	if (!sorted)
-	{
-		sorted = intdup(pa, sizea);
-		if (sorted == NULL)
-		{
-			free(pb);
-			error(pa);
-		}
-		ft_intsort(sorted, sizea);
-		step = ft_round((float)sizea / chunkn);
-		return (step);
-	}
-	return (sorted[step * chunkn]);
-}
-
-void	sort_pb_to_pa(int *pa, int *pb, size_t *sizea, size_t *sizeb)
-{
-	while (*sizeb > 0)
-	{
-		// printpiles(pa, pb, *sizea, *sizeb);
-		goto_maximum(pb, *sizeb, 'b');
-		// printpiles(pa, pb, *sizea, *sizeb);
-		push_p(pa, sizea, pb, sizeb);
-		ft_putstr("pa\n");
-	}
-}
-
-void	sort_advanced(int *pa, int *pb, size_t sizea, int chunk)
-{
-	int		limit;
-	int		chunkn;
-	size_t	i;
-	size_t	sizeb;
-
-	chunkn = 1;
-	sizeb = 0;
-	get_limit(pa, pb, sizea, chunk);
-	while (chunkn < chunk)
-	{
-		limit = get_limit(pa, pb, sizea, chunkn);
-		// ft_printf("limit: %d\n", limit);
-		i = 0;
-		while (goto_closest_below(pa, sizea, limit, 'a'))
-		{
-			push_p(pb, &sizeb, pa, &sizea);
-			ft_putstr("pb\n");
-			i++;
-		}
-		chunkn++;
-	}
-	sort_basic(pa, pb, sizea, sizeb);
-	sort_pb_to_pa(pa, pb, &sizea, &sizeb);
 }

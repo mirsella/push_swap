@@ -6,96 +6,54 @@
 /*   By: mirsella <mirsella@protonmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 14:48:06 by mirsella          #+#    #+#             */
-/*   Updated: 2023/01/03 15:51:47 by mirsella         ###   ########.fr       */
+/*   Updated: 2023/01/03 22:04:06 by mirsella         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
 
-void	rotate_p(int *pile, size_t size)
+void	rotate_p(t_piles *pile)
 {
 	int		tmp;
 	size_t	i;
 
-	tmp = pile[0];
+	if (pile->size < 2)
+		return ;
+	tmp = pile->p[0];
 	i = 0;
-	while (i < size - 1)
+	while (i < pile->size - 1)
 	{
-		pile[i] = pile[i + 1];
+		pile->p[i] = pile->p[i + 1];
 		i++;
 	}
-	pile[i] = tmp;
+	pile->p[i] = tmp;
 }
 
-void	rotate_pp(int *pa, size_t sizea, int *pb, size_t sizeb)
+void	rotate_pp(t_piles *a, t_piles *b)
+{
+	rotate_p(a);
+	rotate_p(b);
+}
+
+void	rrotate_p(t_piles *pile)
 {
 	int		tmp;
 	size_t	i;
 
-	if (pa && sizea > 1)
-	{
-		tmp = pa[0];
-		i = 0;
-		while (i < sizea - 1)
-		{
-			pa[i] = pa[i + 1];
-			i++;
-		}
-		pa[i] = tmp;
-	}
-	if (pb && sizeb > 1)
-	{
-		tmp = pb[0];
-		i = 0;
-		while (i < sizeb - 1)
-		{
-			pb[i] = pb[i + 1];
-			i++;
-		}
-		pb[i] = tmp;
-	}
-}
-
-void	rrotate_p(int *pile, size_t size)
-{
-	int		tmp;
-	size_t	i;
-
-	tmp = pile[size - 1];
-	i = size - 1;
+	if (pile->size < 2)
+		return ;
+	tmp = pile->p[pile->size - 1];
+	i = pile->size - 1;
 	while (i > 0)
 	{
-		pile[i] = pile[i - 1];
+		pile->p[i] = pile->p[i - 1];
 		i--;
 	}
-	pile[i] = tmp;
+	pile->p[i] = tmp;
 }
 
-void	rrotate_pp(int *pa, size_t sizea, int *pb, size_t sizeb)
+void	rrotate_pp(t_piles *a, t_piles *b)
 {
-	int		tmp;
-	size_t	i;
-
-	if (pa && sizea > 1)
-	{
-		tmp = pa[sizea - 1];
-		i = sizea - 1;
-		while (i > 0)
-		{
-			pa[i] = pa[i - 1];
-			i--;
-		}
-		pa[i] = tmp;
-	}
-	if (pb && sizeb > 1)
-	{
-		tmp = pb[sizeb - 1];
-		i = sizeb - 1;
-		while (i > 0)
-		{
-			pb[i] = pb[i - 1];
-			i--;
-		}
-		pb[i] = tmp;
-	}
+	rrotate_p(a);
+	rrotate_p(b);
 }

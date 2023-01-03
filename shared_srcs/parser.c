@@ -6,11 +6,12 @@
 /*   By: mirsella <mirsella@protonmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 14:46:37 by mirsella          #+#    #+#             */
-/*   Updated: 2023/01/03 16:02:43 by mirsella         ###   ########.fr       */
+/*   Updated: 2023/01/03 23:38:23 by mirsella         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
+#include "limits.h"
 
 int	pass_number(char *str)
 {
@@ -22,7 +23,7 @@ int	pass_number(char *str)
 	if (str[i] == '-' || str[i] == '+')
 		i++;
 	if (str[i] < '0' || str[i] > '9')
-		error(NULL);
+		error(NULL, NULL);
 	while (str[i] >= '0' && str[i] <= '9')
 		i++;
 	while (str[i] == ' ' || (str[i] > 8 && str[i] < 14))
@@ -45,7 +46,7 @@ int	count_numbers(int ac, char **av)
 		{
 			count++;
 			if (pass_number(av[acindex] + i) == 0)
-				error(NULL);
+				error(NULL, NULL);
 			i += pass_number(av[acindex] + i);
 		}
 		acindex++;
@@ -53,23 +54,24 @@ int	count_numbers(int ac, char **av)
 	return (count);
 }
 
-void	checkduplicate(int *pa, int size)
+int	has_duplicates(t_piles pile)
 {
-	int	i;
-	int	j;
+	size_t	i;
+	size_t	j;
 
 	i = 0;
-	while (i < size)
+	while (i < pile.size)
 	{
 		j = i + 1;
-		while (j < size)
+		while (j < pile.size)
 		{
-			if (pa[i] == pa[j])
-				error(pa);
+			if (pile.p[i] == pile.p[j])
+				return (1);
 			j++;
 		}
 		i++;
 	}
+	return (0);
 }
 
 int	*parse(int ac, char **av, size_t size)
@@ -88,12 +90,12 @@ int	*parse(int ac, char **av, size_t size)
 	{
 		i = 0;
 		if (av[acindex][0] == '\0')
-			error(pa);
+			error(pa, NULL);
 		while (av[acindex][i])
 		{
 			nb = ft_atoll(av[acindex] + i);
 			if (nb > INT_MAX || nb < INT_MIN)
-				error(pa);
+				error(pa, NULL);
 			pa[pindex++] = nb;
 			i += pass_number(av[acindex] + i);
 		}

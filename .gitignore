@@ -3,3 +3,5 @@
 *.o
 *.gch
 push_swap
+checker
+checker_OS

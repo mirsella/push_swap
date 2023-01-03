@@ -6,30 +6,37 @@
 /*   By: mirsella <mirsella@protonmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 15:24:19 by mirsella          #+#    #+#             */
-/*   Updated: 2023/01/03 16:02:33 by mirsella         ###   ########.fr       */
+/*   Updated: 2023/01/03 23:21:51 by mirsella         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
 
-int	*intdup(int *pile, size_t size)
+void	error(int *pa, int *pb)
+{
+	free(pa);
+	free(pb);
+	ft_putendl_fd("Error", 2);
+	exit(0);
+}
+
+int	*intdup(t_piles pile)
 {
 	int		*new_pile;
 	size_t	i;
 
-	new_pile = ft_calloc(size, sizeof(int));
+	new_pile = ft_calloc(pile.size, sizeof(int));
 	if (!new_pile)
 		return (NULL);
 	i = 0;
-	while (i < size)
+	while (i < pile.size)
 	{
-		new_pile[i] = pile[i];
+		new_pile[i] = pile.p[i];
 		i++;
 	}
 	return (new_pile);
 }
 
-#include "stdio.h"
 void	printpiles(int *pa, int *pb, size_t sizea, size_t sizeb)
 {
 	size_t	i;
@@ -49,5 +56,4 @@ void	printpiles(int *pa, int *pb, size_t sizea, size_t sizeb)
 		i++;
 	}
 	ft_putstr("--------------------------------------\n");
-	fflush(stdout);
 }
