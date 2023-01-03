@@ -6,109 +6,85 @@
 /*   By: mirsella <mirsella@protonmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 16:59:45 by mirsella          #+#    #+#             */
-/*   Updated: 2023/01/03 00:42:48 by mirsella         ###   ########.fr       */
+/*   Updated: 2023/01/03 16:19:21 by mirsella         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
 
-// int	get_limit(int *pa, int *pb, size_t sizea, int chunk)
-// {
-// 	static int		*sorted;
-// 	static size_t	size;
-// 	static int		lchunk;
-// 
-// 	if (!sorted)
-// 	{
-// 		size = sizea;
-// 		lchunk = chunk;
-// 		sorted = intdup(pa, size);
-// 		if (sorted == NULL)
-// 		{
-// 			free(pb);
-// 			error(pa);
-// 		}
-// 		ft_intsort(sorted, size);
-// 	}
-// 	return (sorted[(size / lchunk) * (lchunk + 1 - chunk)]);
-// }
-
-int	get_limit(int *pa, int *pb, size_t sizea, int chunkn)
-{
-	static int		*sorted = 0;
-	static int		step = 0;
-
-	if (!sorted)
-	{
-		sorted = intdup(pa, sizea);
-		if (sorted == NULL)
-		{
-			free(pb);
-			error(pa);
-		}
-		ft_intsort(sorted, sizea);
-		step = ft_round((float)sizea / chunkn);
-		return (step);
-	}
-	return (sorted[step * chunkn]);
-}
-
-
-void	goto_closest_below(int *pa, size_t sizea, int max)
+int	goto_closest_below(int *pile, size_t size, int max, char letter)
 {
 	size_t	start;
 	size_t	end;
 
 	start = 0;
 	end = 0;
-	while (pa[start] > max && start < sizea)
+	while (pile[start] > max && start < size)
 		start++;
-	while (pa[sizea - 1 - end] > max && end < sizea)
+	while (pile[size - 1 - end] > max && end < size)
 		end++;
-	if (start < end)
-		while (pa[0] > max)
-			rotate_a(pa, sizea);
-	else
-		while (pa[0] > max)
-		{
-			ft_putstr("in loop");
-			rrotate_a(pa, sizea);
-		}
+	if (start == end && start == size)
+		return (0);
+	goto_num(pile, size, pile[ft_llmin(start, size - 1 - end)], letter);
+	return (1);
 }
 
-void	goto_num(int *pa, size_t sizea, int num)
+void	goto_num(int *pile, size_t size, int num, char letter)
 {
 	size_t	i;
 
 	i = 0;
-	while (i < sizea)
+	while (i < size)
 	{
-		if (pa[i] == num)
+		if (pile[i] == num)
 			break ;
 		i++;
 	}
-	if (i < sizea / 2)
-		while (pa[0] != num)
-			rotate_a(pa, sizea);
+	if (i < size / 2)
+		while (pile[0] != num)
+		{
+			rotate_p(pile, size);
+			ft_printf("r%c\n", letter);
+		}
+
 	else
-		while (pa[0] != num)
-			rrotate_a(pa, sizea);
+		while (pile[0] != num)
+		{
+			rrotate_p(pile, size);
+			ft_printf("rr%c\n", letter);
+		}
 }
 
-void	goto_minimum(int *pa, size_t sizea)
+void	goto_maximum(int *pile, size_t size, char letter)
+{
+	size_t	i;
+	size_t	max;
+
+	i = 0;
+	max = 0;
+	while (i < size)
+	{
+		if (pile[i] > pile[max])
+			max = i;
+		i++;
+	}
+	goto_num(pile, size, pile[max], letter);
+}
+
+void	goto_minimum(int *pile, size_t size, char letter)
 {
 	size_t	i;
 	int		min;
 
 	i = 0;
-	min = pa[0];
-	while (i < sizea)
+	min = pile[0];
+	while (i < size)
 	{
-		if (pa[i] < min)
-			min = pa[i];
+		if (pile[i] < min)
+			min = pile[i];
 		i++;
 	}
-	goto_num(pa, sizea, min);
+	goto_num(pile, size, min, letter);
 }
 
 void	sort(int *pa, int *pb, size_t sizea, size_t sizeb)
@@ -118,7 +94,10 @@ void	sort(int *pa, int *pb, size_t sizea, size_t sizeb)
 	else if (sizea == 2)
 	{
 		if (pa[0] > pa[1])
-			swap_a(pa, sizea);
+		{
+			swap_p(pa, sizea);
+			ft_putstr("sa\n");
+		}
 	}
 	else if (sizea == 3)
 		sort_3(pa, sizea);

@@ -6,7 +6,7 @@
 /*   By: mirsella <mirsella@protonmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 14:30:57 by mirsella          #+#    #+#             */
-/*   Updated: 2023/01/03 00:51:12 by mirsella         ###   ########.fr       */
+/*   Updated: 2023/01/03 16:04:31 by mirsella         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,12 @@ int	main(int ac, char **av)
 	if (sizea < 1)
 		error(NULL);
 	pa = parse(ac, av, sizea);
-	pb = malloc_pile(sizea);
+	if (!pa)
+		error(NULL);
 	checkduplicate(pa, sizea);
-	// printpiles(pa, pb, sizea, sizeb);
+	pb = ft_calloc(sizea, sizeof(int));
+	if (!pb)
+		error(pa);
 	sort(pa, pb, sizea, sizeb);
-	printpiles(pa, pb, sizea, sizeb);
+	// printpiles(pa, pb, sizea, sizeb);
 }

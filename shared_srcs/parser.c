@@ -6,7 +6,7 @@
 /*   By: mirsella <mirsella@protonmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 14:46:37 by mirsella          #+#    #+#             */
-/*   Updated: 2023/01/02 18:14:24 by mirsella         ###   ########.fr       */
+/*   Updated: 2023/01/03 16:02:43 by mirsella         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ int	pass_number(char *str)
 	if (str[i] < '0' || str[i] > '9')
 		error(NULL);
 	while (str[i] >= '0' && str[i] <= '9')
+		i++;
+	while (str[i] == ' ' || (str[i] > 8 && str[i] < 14))
 		i++;
 	return (i);
 }
@@ -81,8 +83,8 @@ int	*parse(int ac, char **av, size_t size)
 	acindex = 0;
 	pindex = 0;
 	i = 0;
-	pa = malloc_pile(size);
-	while (++acindex < ac)
+	pa = ft_calloc(size, sizeof(int));
+	while (pa && ++acindex < ac)
 	{
 		i = 0;
 		if (av[acindex][0] == '\0')
