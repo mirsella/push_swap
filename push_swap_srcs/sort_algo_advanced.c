@@ -6,7 +6,7 @@
 /*   By: mirsella <mirsella@protonmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 22:16:28 by mirsella          #+#    #+#             */
-/*   Updated: 2023/01/04 22:24:37 by mirsella         ###   ########.fr       */
+/*   Updated: 2023/01/04 22:39:53 by mirsella         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,39 +53,13 @@ void	goto_num_rr(t_piles *a, t_piles *b, size_t i, size_t counter)
 int	goto_closest_below_pa1(t_piles *a, t_piles *b, int max, size_t counter)
 {
 	size_t	start;
-	size_t	end;
 
 	start = 0;
-	end = 0;
 	while (a->p[start] > max && start < a->size)
 		start++;
-	while (a->p[a->size - 1 - end] > max && end < a->size)
-		end++;
-	if (start == end && start == a->size)
-		return (0);
-	goto_num_rr(a, b, start, counter);
-	return (1);
-}
-
-int	goto_closest_below_pa2(t_piles *a, t_piles *b, int max, size_t counter)
-{
-	size_t	start;
-	size_t	end;
-	int		index;
-
-	start = 0;
-	end = a->size - 1;
-	while (a->p[start] > max && start < a->size)
-		start++;
-	while (a->p[end] > max && end > 0)
-		end--;
 	if (start == a->size)
 		return (0);
-	if (start < a->size - 1 - end)
-		index = start;
-	else
-		index = end;
-	goto_num_rr(a, b, index, counter);
+	goto_num_rr(a, b, start, counter);
 	return (1);
 }
 
@@ -99,14 +73,16 @@ int	goto_closest_below_pa2(t_piles *a, t_piles *b, int max, size_t counter)
 void	sort_advanced(t_piles *a, t_piles *b, int chunk)
 {
 	int		limit;
+	int		limit2;
 	int		chunkn;
 	size_t	counter;
 
 	chunkn = 1;
-	get_limit(a, b, chunk);
+	get_limit(a, b, chunk, 0);
 	while (chunkn < chunk + 1)
 	{
-		limit = get_limit(a, b, chunkn);
+		limit = get_limit(a, b, chunkn, 0);
+		limit2 = get_limit(a, b, chunkn + 1, 0);
 		counter = 0;
 		(void)counter;
 		while (goto_closest_below_pa1(a, b, limit, counter++))
@@ -116,6 +92,7 @@ void	sort_advanced(t_piles *a, t_piles *b, int chunk)
 		}
 		chunkn++;
 	}
+	get_limit(a, b, chunk, 1);
 	if (a->size > 2)
 		sort_basic(a, b);
 	sort_pb_to_pa(a, b);

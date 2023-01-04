@@ -6,7 +6,7 @@
 /*   By: mirsella <mirsella@protonmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 14:46:47 by mirsella          #+#    #+#             */
-/*   Updated: 2023/01/04 15:35:47 by mirsella         ###   ########.fr       */
+/*   Updated: 2023/01/04 22:30:02 by mirsella         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	rotate_pp(t_piles *a, t_piles *b);
 void	rrotate_p(t_piles *pile);
 void	rrotate_pp(t_piles *a, t_piles *b);
 void	sort(t_piles *a, t_piles *b);
-int		get_limit(t_piles *a, t_piles *b, size_t chunkn);
+int		get_limit(t_piles *a, t_piles *b, size_t chunkn, int freee);
 size_t	get_minimum(t_piles *pile);
 size_t	get_maximum(t_piles *pile);
 void	goto_index(t_piles *pile, size_t index, char letter);

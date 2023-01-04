@@ -6,7 +6,7 @@
 /*   By: mirsella <mirsella@protonmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 22:31:16 by mirsella          #+#    #+#             */
-/*   Updated: 2023/01/04 00:06:14 by mirsella         ###   ########.fr       */
+/*   Updated: 2023/01/04 22:36:21 by mirsella         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,11 @@ int	is_sorting(t_piles *a, t_piles *b)
 		if (!is_valid_action(line))
 		{
 			ft_get_next_line(0, 1);
+			free(line);
 			error(a->p, b->p);
 		}
 		call_action(a, b, line);
+		free(line);
 	}
 	if (ft_isascending(a->p, a->size) && b->size == 0)
 	{

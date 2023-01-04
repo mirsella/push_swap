@@ -6,13 +6,13 @@
 /*   By: mirsella <mirsella@protonmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 16:59:45 by mirsella          #+#    #+#             */
-/*   Updated: 2023/01/04 15:22:35 by mirsella         ###   ########.fr       */
+/*   Updated: 2023/01/04 22:41:07 by mirsella         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
 
-int	get_limit(t_piles *a, t_piles *b, size_t chunkn)
+int	get_limit(t_piles *a, t_piles *b, size_t chunkn, int freee)
 {
 	static int		*sorted = 0;
 	static int		step = 0;
@@ -26,6 +26,16 @@ int	get_limit(t_piles *a, t_piles *b, size_t chunkn)
 		step = ft_round((float)a->size / chunkn);
 		return (step);
 	}
+	else if (freee)
+	{
+		free(sorted);
+		sorted = 0;
+		return (0);
+	}
+	else
+		return (step);
+	if (step * chunkn >= a->size)
+		return (sorted[a->size - 1]);
 	return (sorted[step * chunkn]);
 }
 
