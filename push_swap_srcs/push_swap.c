@@ -6,7 +6,7 @@
 /*   By: mirsella <mirsella@protonmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 14:30:57 by mirsella          #+#    #+#             */
-/*   Updated: 2023/01/03 23:33:40 by mirsella         ###   ########.fr       */
+/*   Updated: 2023/01/04 15:29:56 by mirsella         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,4 +30,7 @@ int	main(int ac, char **av)
 	if (has_duplicates(a))
 		error(a.p, b.p);
 	sort(&a, &b);
+	free(a.p);
+	free(b.p);
+	return (0);
 }

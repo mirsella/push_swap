@@ -6,7 +6,7 @@
 /*   By: mirsella <mirsella@protonmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 18:37:55 by mirsella          #+#    #+#             */
-/*   Updated: 2023/01/03 22:18:08 by mirsella         ###   ########.fr       */
+/*   Updated: 2023/01/04 14:54:41 by mirsella         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	sort_basic(t_piles *a, t_piles *b)
 		return ;
 	while (a->size > 3)
 	{
-		goto_minimum(a, 'a');
+		goto_index(a, get_minimum(a), 'a');
 		if (ft_isascending(a->p, a->size))
 			break ;
 		push_p(b, a);

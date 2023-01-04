@@ -4,4 +4,5 @@
 *.gch
 push_swap
 checker
-checker_OS
+checker_linux
+./max_operations.txt
