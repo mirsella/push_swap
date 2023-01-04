@@ -6,7 +6,7 @@
 /*   By: mirsella <mirsella@protonmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 14:27:01 by mirsella          #+#    #+#             */
-/*   Updated: 2023/01/04 17:28:37 by mirsella         ###   ########.fr       */
+/*   Updated: 2023/01/04 22:45:20 by mirsella         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,14 @@ void	pa_rra(t_piles *a, t_piles *b, size_t index, size_t *down)
 	int	max;
 
 	max = b->p[index];
-	while (b->p[0] < max && (*down == 0 || (*down > 0 && a->p[a->size - 1] < b->p[0])))
+	while (b->p[0] < max
+		&& (*down == 0 || (*down > 0 && a->p[a->size - 1] < b->p[0])))
 	{
-			push_p(a, b);
-			ft_putstr("pa\n");
-			rotate_p(a);
-			ft_putstr("ra\n");
-			(*down)++;
+		push_p(a, b);
+		ft_putstr("pa\n");
+		rotate_p(a);
+		ft_putstr("ra\n");
+		(*down)++;
 	}
 }
 
@@ -56,6 +57,23 @@ void	goto_max_pa(t_piles *a, t_piles *b, size_t index, size_t *down)
 			ft_putstr("rrb\n");
 		}
 	}
+	// while (b->p[0] != max)
+	// {
+	// 	index = get_maximum(b);
+	// 	pa_rra(a, b, index, down);
+	// 	if (b->p[0] == max)
+	// 		break ;
+	// 	if (index <= b->size / 2)
+	// 	{
+	// 		rotate_p(b);
+	// 		ft_putstr("rb\n");
+	// 	}
+	// 	else
+	// 	{
+	// 		rrotate_p(b);
+	// 		ft_putstr("rrb\n");
+	// 	}
+	// }
 }
 
 

@@ -6,7 +6,7 @@
 /*   By: mirsella <mirsella@protonmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 22:16:28 by mirsella          #+#    #+#             */
-/*   Updated: 2023/01/04 22:39:53 by mirsella         ###   ########.fr       */
+/*   Updated: 2023/01/04 22:50:26 by mirsella         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,28 @@ int	goto_closest_below_pa1(t_piles *a, t_piles *b, int max, size_t counter)
 	return (1);
 }
 
+int	goto_closest_below_pa2(t_piles *a, t_piles *b, int max, size_t counter)
+{
+	size_t	start;
+	size_t	end;
+	int		index;
+
+	start = 0;
+	end = a->size - 1;
+	while (a->p[start] > max && start < a->size)
+		start++;
+	while (a->p[end] > max && end > 0)
+		end--;
+	if (start == a->size)
+		return (0);
+	if (start < a->size - 1 - end)
+		index = start;
+	else
+		index = end;
+	goto_num_rr(a, b, index, counter);
+	return (1);
+}
+
 /*
    if (b->size > 1 && a->size > 1 && b->p[0] < b->p[1] && b->p[0] < a->p[0])
    {
@@ -73,7 +95,6 @@ int	goto_closest_below_pa1(t_piles *a, t_piles *b, int max, size_t counter)
 void	sort_advanced(t_piles *a, t_piles *b, int chunk)
 {
 	int		limit;
-	int		limit2;
 	int		chunkn;
 	size_t	counter;
 
@@ -82,7 +103,6 @@ void	sort_advanced(t_piles *a, t_piles *b, int chunk)
 	while (chunkn < chunk + 1)
 	{
 		limit = get_limit(a, b, chunkn, 0);
-		limit2 = get_limit(a, b, chunkn + 1, 0);
 		counter = 0;
 		(void)counter;
 		while (goto_closest_below_pa1(a, b, limit, counter++))
