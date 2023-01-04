@@ -6,13 +6,13 @@
 /*   By: mirsella <mirsella@protonmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 16:59:45 by mirsella          #+#    #+#             */
-/*   Updated: 2023/01/04 00:06:53 by mirsella         ###   ########.fr       */
+/*   Updated: 2023/01/04 12:23:33 by mirsella         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
 
-int	get_limit(t_piles *a, t_piles *b, int chunkn)
+int	get_limit(t_piles *a, t_piles *b, size_t chunkn)
 {
 	static int		*sorted = 0;
 	static int		step = 0;
