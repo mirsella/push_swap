@@ -6,7 +6,7 @@
 /*   By: mirsella <mirsella@protonmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 16:59:45 by mirsella          #+#    #+#             */
-/*   Updated: 2023/01/04 12:23:33 by mirsella         ###   ########.fr       */
+/*   Updated: 2023/01/04 15:22:35 by mirsella         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,18 +29,12 @@ int	get_limit(t_piles *a, t_piles *b, size_t chunkn)
 	return (sorted[step * chunkn]);
 }
 
-void	goto_num(t_piles *pile, int num, char letter)
+void	goto_index(t_piles *pile, size_t index, char letter)
 {
-	size_t	i;
+	int	num;
 
-	i = 0;
-	while (i < pile->size)
-	{
-		if (pile->p[i] == num)
-			break ;
-		i++;
-	}
-	if (i <= pile->size / 2)
+	num = pile->p[index];
+	if (index <= pile->size / 2)
 	{
 		while (pile->p[0] != num)
 		{
@@ -58,36 +52,46 @@ void	goto_num(t_piles *pile, int num, char letter)
 	}
 }
 
-void	goto_maximum(t_piles *pile, char letter)
+size_t	get_maximum(t_piles *pile)
 {
 	size_t	i;
-	size_t	max;
+	int		max;
+	size_t	index;
 
 	i = 0;
-	max = 0;
+	max = pile->p[0];
+	index = 0;
 	while (i < pile->size)
 	{
-		if (pile->p[i] > pile->p[max])
-			max = i;
+		if (pile->p[i] > max)
+		{
+			max = pile->p[i];
+			index = i;
+		}
 		i++;
 	}
-	goto_num(pile, pile->p[max], letter);
+	return (index);
 }
 
-void	goto_minimum(t_piles *pile, char letter)
+size_t	get_minimum(t_piles *pile)
 {
 	size_t	i;
 	int		min;
+	size_t	index;
 
 	i = 0;
 	min = pile->p[0];
+	index = 0;
 	while (i < pile->size)
 	{
 		if (pile->p[i] < min)
+		{
 			min = pile->p[i];
+			index = i;
+		}
 		i++;
 	}
-	goto_num(pile, min, letter);
+	return (index);
 }
 
 void	sort(t_piles *a, t_piles *b)

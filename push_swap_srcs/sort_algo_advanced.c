@@ -6,7 +6,7 @@
 /*   By: mirsella <mirsella@protonmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 22:16:28 by mirsella          #+#    #+#             */
-/*   Updated: 2023/01/04 13:04:23 by mirsella         ###   ########.fr       */
+/*   Updated: 2023/01/04 17:26:15 by mirsella         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int	goto_closest_below_pa1(t_piles *a, t_piles *b, int max, size_t counter)
 		end++;
 	if (start == end && start == a->size)
 		return (0);
-	goto_num_rr(a, b, ft_llmin(start, a->size - 1 - end), counter);
+	goto_num_rr(a, b, start, counter);
 	return (1);
 }
 
@@ -89,16 +89,13 @@ int	goto_closest_below_pa2(t_piles *a, t_piles *b, int max, size_t counter)
 	return (1);
 }
 
-void	sort_pb_to_pa(t_piles *a, t_piles *b)
-{
-	while (b->size > 0)
-	{
-		goto_maximum(b, 'b');
-		push_p(a, b);
-		ft_putstr("pa\n");
-	}
-}
-
+/*
+   if (b->size > 1 && a->size > 1 && b->p[0] < b->p[1] && b->p[0] < a->p[0])
+   {
+   	swap_pp(a, b);
+   	ft_putstr("ss\n");
+   }
+   */
 void	sort_advanced(t_piles *a, t_piles *b, int chunk)
 {
 	int		limit;
@@ -111,15 +108,11 @@ void	sort_advanced(t_piles *a, t_piles *b, int chunk)
 	{
 		limit = get_limit(a, b, chunkn);
 		counter = 0;
-		while (goto_closest_below_pa2(a, b, limit, counter++))
+		(void)counter;
+		while (goto_closest_below_pa1(a, b, limit, counter++))
 		{
 			push_p(b, a);
 			ft_putstr("pb\n");
-			if (b->size > 1 && a->size > 1 && b->p[0] < b->p[1])
-			{
-				swap_pp(a, b);
-				ft_putstr("ss\n");
-			}
 		}
 		chunkn++;
 	}

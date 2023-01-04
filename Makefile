@@ -1,14 +1,14 @@
 SHARED_SRCS = $(addprefix shared_srcs/, pile.c pile_action_basic.c pile_action_rotate.c parser.c)
 SHARED_OBJS = $(SHARED_SRCS:.c=.o)
 
-SRCS = $(addprefix push_swap_srcs/, push_swap.c sort.c sort_algo.c sort_algo_advanced.c)
+SRCS = $(addprefix push_swap_srcs/, push_swap.c sort.c sort_algo.c sort_algo_advanced.c sort_algo_advanced_pbtopa.c)
 OBJS = $(SRCS:.c=.o)
 
 BSRCS = $(addprefix checker_srcs/, checker.c)
 BOBJS = $(BSRCS:.c=.o)
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g3
 
 LIBFT = libft/libft.a
 BNAME = checker
