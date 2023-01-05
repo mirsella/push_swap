@@ -8,7 +8,7 @@ BSRCS = $(addprefix checker_srcs/, checker.c)
 BOBJS = $(BSRCS:.c=.o)
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g3
+CFLAGS = -Wall -Wextra -Werror
 
 LIBFT = libft/libft.a
 BNAME = checker
