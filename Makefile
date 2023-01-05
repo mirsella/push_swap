@@ -21,10 +21,10 @@ $(NAME): $(LIBFT) $(OBJS) $(SHARED_OBJS)
 
 clean:
 	make -C libft clean
-	rm $(OBJS) $(BOBJS) $(SHARED_OBJS)
+	rm -f $(OBJS) $(BOBJS) $(SHARED_OBJS)
 
 fclean: clean
-	rm $(NAME) $(BNAME) $(LIBFT)
+	rm -f $(NAME) $(BNAME) $(LIBFT)
 
 re: fclean all
 
