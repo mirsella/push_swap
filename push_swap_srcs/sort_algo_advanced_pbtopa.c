@@ -6,7 +6,7 @@
 /*   By: mirsella <mirsella@protonmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 14:27:01 by mirsella          #+#    #+#             */
-/*   Updated: 2023/01/04 22:57:13 by mirsella         ###   ########.fr       */
+/*   Updated: 2023/01/05 00:23:28 by mirsella         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ void	goto_max_pa(t_piles *a, t_piles *b, size_t index, size_t *down)
 	max = b->p[index];
 	while (b->p[0] != max)
 	{
-		index = get_maximum(b);
 		pa_rra(a, b, index, down);
+		index = get_maximum(b);
 		if (b->p[0] == max)
 			break ;
 		if (index <= b->size / 2)

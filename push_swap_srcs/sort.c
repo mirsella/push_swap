@@ -6,7 +6,7 @@
 /*   By: mirsella <mirsella@protonmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 16:59:45 by mirsella          #+#    #+#             */
-/*   Updated: 2023/01/04 22:54:21 by mirsella         ###   ########.fr       */
+/*   Updated: 2023/01/05 02:04:39 by mirsella         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ void	sort(t_piles *a, t_piles *b)
 	else if (a->size <= 10)
 		sort_basic(a, b);
 	else if (a->size <= 100)
-		sort_advanced(a, b, 5);
+		sort_advanced(a, b, 6);
 	else
-		sort_advanced(a, b, 12);
+		sort_advanced(a, b, 16);
 }

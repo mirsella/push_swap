@@ -6,7 +6,7 @@
 /*   By: mirsella <mirsella@protonmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 14:46:47 by mirsella          #+#    #+#             */
-/*   Updated: 2023/01/04 22:30:02 by mirsella         ###   ########.fr       */
+/*   Updated: 2023/01/05 02:06:10 by mirsella         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ void	sort_3(t_piles *pile);
 void	sort_basic(t_piles *a, t_piles *b);
 void	sort_advanced(t_piles *a, t_piles *b, int chunk);
 void	sort_pb_to_pa(t_piles *a, t_piles *b);
+int		goto_closest_below_limits(t_piles *a, t_piles *b,
+			int chunk, int chunkn);
 int		*intdup(t_piles piles);
 int		*parse(int ac, char **av, size_t size);
 int		count_numbers(int ac, char **av);

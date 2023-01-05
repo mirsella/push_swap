@@ -6,114 +6,60 @@
 /*   By: mirsella <mirsella@protonmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 22:16:28 by mirsella          #+#    #+#             */
-/*   Updated: 2023/01/04 22:50:26 by mirsella         ###   ########.fr       */
+/*   Updated: 2023/01/05 02:05:48 by mirsella         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
 
-size_t	should_rr_or_r(t_piles *a, t_piles *b, int should_rr)
+int	is_there_number_below_limit(t_piles *a, int limit)
 {
-	if (b->size > 0 && should_rr)
+	size_t	i;
+
+	i = 0;
+	while (i < a->size)
 	{
-		rotate_pp(a, b);
-		ft_putstr("rr\n");
-		return (1);
+		if (a->p[i] < limit)
+			return (1);
+		i++;
 	}
-	rotate_p(a);
-	ft_putstr("ra\n");
 	return (0);
 }
 
-void	goto_num_rr(t_piles *a, t_piles *b, size_t i, size_t counter)
+void	goto_first_below_limit(t_piles *a, t_piles *b, int limit, int limit2)
 {
-	static size_t	rr_count = 0;
-	int				num;
-
-	if (counter == 0)
-		rr_count = 0;
-	num = a->p[i];
-	if (i <= a->size / 2)
+	while (a->p[0] > limit && is_there_number_below_limit(a, limit))
 	{
-		while (a->p[0] != num)
-		{
-			rr_count += should_rr_or_r(a, b, counter / 2 > rr_count);
-		}
-	}
-	else
-	{
-		while (a->p[0] != num)
-		{
-			rrotate_p(a);
-			ft_putstr("rra\n");
-		}
-	}
-}
-
-int	goto_closest_below_pa1(t_piles *a, t_piles *b, int max, size_t counter)
-{
-	size_t	start;
-
-	start = 0;
-	while (a->p[start] > max && start < a->size)
-		start++;
-	if (start == a->size)
-		return (0);
-	goto_num_rr(a, b, start, counter);
-	return (1);
-}
-
-int	goto_closest_below_pa2(t_piles *a, t_piles *b, int max, size_t counter)
-{
-	size_t	start;
-	size_t	end;
-	int		index;
-
-	start = 0;
-	end = a->size - 1;
-	while (a->p[start] > max && start < a->size)
-		start++;
-	while (a->p[end] > max && end > 0)
-		end--;
-	if (start == a->size)
-		return (0);
-	if (start < a->size - 1 - end)
-		index = start;
-	else
-		index = end;
-	goto_num_rr(a, b, index, counter);
-	return (1);
-}
-
-/*
-   if (b->size > 1 && a->size > 1 && b->p[0] < b->p[1] && b->p[0] < a->p[0])
-   {
-   	swap_pp(a, b);
-   	ft_putstr("ss\n");
-   }
-   */
-void	sort_advanced(t_piles *a, t_piles *b, int chunk)
-{
-	int		limit;
-	int		chunkn;
-	size_t	counter;
-
-	chunkn = 1;
-	get_limit(a, b, chunk, 0);
-	while (chunkn < chunk + 1)
-	{
-		limit = get_limit(a, b, chunkn, 0);
-		counter = 0;
-		(void)counter;
-		while (goto_closest_below_pa1(a, b, limit, counter++))
+		if (a->p[0] <= limit2 && a->p[0] > limit)
 		{
 			push_p(b, a);
 			ft_putstr("pb\n");
+			if (b->size > 1)
+			{
+				rotate_p(b);
+				ft_putstr("rb\n");
+			}
 		}
-		chunkn++;
+		else
+		{
+			rotate_p(a);
+			ft_putstr("ra\n");
+		}
 	}
-	get_limit(a, b, chunk, 1);
-	if (a->size > 2)
-		sort_basic(a, b);
-	sort_pb_to_pa(a, b);
+}
+
+int	goto_closest_below_limits(t_piles *a, t_piles *b, int chunk, int chunkn)
+{
+	int		limit;
+	int		limit2;
+
+	limit = get_limit(a, b, chunkn, 0);
+	if (chunkn < chunk - 1)
+		limit2 = get_limit(a, b, chunkn + 1, 0);
+	else
+		limit2 = limit;
+	if (!is_there_number_below_limit(a, limit))
+		return (0);
+	goto_first_below_limit(a, b, limit, limit2);
+	return (1);
 }
